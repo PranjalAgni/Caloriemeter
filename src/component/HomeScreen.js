@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, Share, Image, Pressable } from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, Share, Image, Pressable, useColorScheme } from 'react-native';
 import Card from './Card';
 import { textColor } from '../utils';
 import GetStartedImage from '../../assets/get_started.jpeg';
 import HistoryImage from '../../assets/history_table.jpg';
 import ShareImage from '../../assets/share.png';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 function HomeScreen({ navigation }) {
   const [imagePath, setImagePath] = useState();
@@ -34,9 +35,10 @@ function HomeScreen({ navigation }) {
       alert(error.message);
     }
   };
+  const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <View style={{ padding: 20, flex: 1 }}>
+    <View style={{ padding: 20, flex: 1, backgroundColor: isDarkMode ? Colors.black : Colors.white, }}>
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
         <Text style={{ fontSize: 40, color: textColor(), fontWeight: "800", fontFamily: "cursive" }}>Calorie Meter</Text>
         <Pressable onPress={onShare}>

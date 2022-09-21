@@ -40,7 +40,6 @@ const App = () => {
     <SafeAreaView style={backgroundStyle}>
       <View
         style={{
-          backgroundColor: isDarkMode ? Colors.black : Colors.white,
           height: "100%"
         }}>
         <RootNavigator />
