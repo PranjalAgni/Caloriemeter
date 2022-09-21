@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import HomeScreen from '../component/HomeScreen';
-// import DetailScreen from '../screens/DetailScreen';
+import DetailsScreen from '../component/DetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +12,7 @@ const RootNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={HomeScreen} />
-        {/* <Stack.Screen name="Details" component={DetailScreen} /> */}
+        <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

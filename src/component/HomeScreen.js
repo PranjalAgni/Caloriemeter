@@ -5,46 +5,21 @@ import Card from './Card';
 import { textColor } from '../utils';
 import GetStartedImage from '../../assets/get_started.jpeg';
 import HistoryImage from '../../assets/history_table.jpg';
-import ShareImage from '../../assets/share.png';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Header from './Header';
 
 function HomeScreen({ navigation }) {
-  const [imagePath, setImagePath] = useState();
   const handlePress = async () => {
     const result = await launchCamera();
     console.log(result);
-    setImagePath(result.assets[0].uri);
+    navigation.push("Details", { imageUri: result.assets[0].uri });
   }
 
-  const onShare = async () => {
-    try {
-      const result = await Share.share({
-        message:
-          'Get your food calorie | Calorie Meter',
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <View style={{ padding: 20, flex: 1, backgroundColor: isDarkMode ? Colors.black : Colors.white, }}>
-      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
-        <Text style={{ fontSize: 40, color: textColor(), fontWeight: "800", fontFamily: "cursive" }}>Calorie Meter</Text>
-        <Pressable onPress={onShare}>
-          <Image source={ShareImage} style={{ height: 25, width: 25, alignSelf: "center", marginTop: 10 }} />
-        </Pressable>
-      </View>
+      <Header />
       <Card
         image={GetStartedImage}
         title="Get Started"
@@ -57,7 +32,6 @@ function HomeScreen({ navigation }) {
         title="History"
         blurRadius={10}
       />
-      {imagePath && <Image source={{ uri: imagePath }} style={{ height: 200, width: 200 }} />}
     </View>
   )
 }
