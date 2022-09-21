@@ -6,7 +6,8 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import LottieSplashScreen from "react-native-lottie-splash-screen";
 import {
   SafeAreaView,
   ScrollView,
@@ -18,7 +19,7 @@ import {
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
-import ImagePicker from './src/component/ImagePicker';
+import RootNavigator from './src/navigation/RootNavigator';
 
 
 const App = () => {
@@ -28,6 +29,13 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      LottieSplashScreen.hide();
+    }, 2000);
+  }, []);
+
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <View
@@ -35,7 +43,7 @@ const App = () => {
           backgroundColor: isDarkMode ? Colors.black : Colors.white,
           height: "100%"
         }}>
-        <ImagePicker />
+        <RootNavigator />
       </View>
     </SafeAreaView>
   );

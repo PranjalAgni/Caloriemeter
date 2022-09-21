@@ -7,7 +7,7 @@ import GetStartedImage from '../../assets/get_started.jpeg';
 import HistoryImage from '../../assets/history_table.jpg';
 import ShareImage from '../../assets/share.png';
 
-function ImagePicker() {
+function HomeScreen({ navigation }) {
   const [imagePath, setImagePath] = useState();
   const handlePress = async () => {
     const result = await launchCamera();
@@ -40,7 +40,7 @@ function ImagePicker() {
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
         <Text style={{ fontSize: 40, color: textColor(), fontWeight: "800", fontFamily: "cursive" }}>Calorie Meter</Text>
         <Pressable onPress={onShare}>
-          <Image source={ShareImage}style={{height: 25, width: 25, alignSelf: "center", marginTop: 10}} />
+          <Image source={ShareImage} style={{ height: 25, width: 25, alignSelf: "center", marginTop: 10 }} />
         </Pressable>
       </View>
       <Card
@@ -53,7 +53,6 @@ function ImagePicker() {
       <Card
         image={HistoryImage}
         title="History"
-        onPress={handlePress}
         blurRadius={10}
       />
       {imagePath && <Image source={{ uri: imagePath }} style={{ height: 200, width: 200 }} />}
@@ -61,4 +60,4 @@ function ImagePicker() {
   )
 }
 
-export default ImagePicker;
+export default HomeScreen;

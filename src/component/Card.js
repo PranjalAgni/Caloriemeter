@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, ImageBackground, Image, Pressable } from 'react-native';
-import { backgroundColor } from '../utils';
+import { backgroundColor, textColor } from '../utils';
 // import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 
 export default function Card({ title, image, onPress, blurRadius }) {
@@ -14,7 +14,7 @@ export default function Card({ title, image, onPress, blurRadius }) {
           resizeMode="cover"
           style={styles.image}
         >
-          <Text style={styles.text}>{title}</Text>
+          <Text style={[styles.text, {color: textColor()}]}>{title}</Text>
         </ImageBackground>
         {/* <Image source={{ uri: "https://reactjs.org/logo-og.png" }} style={{ height: 200, width: 200 }} /> */}
       </View>
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     marginBottom: 13,
   },
   card: {
-    // backgroundColor: backgroundColor(),
     borderRadius: 12,
     width: '100%',
     marginVertical: 10,
@@ -46,7 +45,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    color: "#fff",
     fontSize: 42,
     lineHeight: 200,
     fontWeight: "bold",
