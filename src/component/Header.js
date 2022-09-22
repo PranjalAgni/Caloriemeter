@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Pressable, View, Text } from 'react-native';
+import { Image, Pressable, View, Text, Share } from 'react-native';
 import ShareImage from '../../assets/share.png';
 import { textColor } from '../utils';
 

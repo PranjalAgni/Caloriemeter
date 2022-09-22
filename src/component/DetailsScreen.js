@@ -1,14 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image, Text, useColorScheme, View, StyleSheet } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Card from './Card';
 import Header from './Header';
 import { backgroundColor } from '../utils';
+import { connect } from 'react-redux';
 
-function DetailsScreen({ route, navigation }) {
+function DetailsScreen({ route, navigation, dispatch }) {
   const isDarkMode = useColorScheme() === 'dark';
   const imageUri = route.params.imageUri;
   const color = backgroundColor();
+  useEffect(() => {
+    const payload = {
+      [Date.now()]: {
+        calorie: Math.random() * 1000,
+        uri: route.params.imageUri,
+      }
+    };
+    dispatch({
+      type: "ADD_CALORIE_DATA",
+      payload,
+    });
+
+    return () => { }
+  }, []);
+
   return (
     <View style={{ padding: 20, flex: 1, backgroundColor: isDarkMode ? Colors.black : Colors.white, }}>
       <Header />
@@ -64,5 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export default DetailsScreen;
+export default connect()(DetailsScreen)

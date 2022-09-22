@@ -1,0 +1,2 @@
+export const ADD_CALORIE_DATA = "ADD_CALORIE_DATA";
+export const GET_CALORIE_DATA = "GET_CALORIE_DATA";

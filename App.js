@@ -21,9 +21,13 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import RootNavigator from './src/navigation/RootNavigator';
 
+import { Provider } from 'react-redux';
+
+import configureStore from './src/store/configureStore';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const store = configureStore();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -37,14 +41,16 @@ const App = () => {
 
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <View
-        style={{
-          height: "100%"
-        }}>
-        <RootNavigator />
-      </View>
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={backgroundStyle}>
+        <View
+          style={{
+            height: "100%"
+          }}>
+          <RootNavigator />
+        </View>
+      </SafeAreaView>
+    </Provider>
   );
 };
 
