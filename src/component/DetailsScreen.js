@@ -9,34 +9,45 @@ import { connect } from 'react-redux';
 function DetailsScreen({ route, navigation, dispatch }) {
   const isDarkMode = useColorScheme() === 'dark';
   const imageUri = route.params.imageUri;
+  const item = route.params.item;
+  const source = route.params.source;
   const color = backgroundColor();
   useEffect(() => {
-    const payload = {
-      [Date.now()]: {
-        calorie: Math.random() * 1000,
-        uri: route.params.imageUri,
-      }
-    };
-    dispatch({
-      type: "ADD_CALORIE_DATA",
-      payload,
-    });
+    if (source === "HomeScreen") {
+      const payload = {
+        [Date.now()]: {
+          calorie: parseInt(Math.random() * 1000),
+          uri: route.params.imageUri,
+        }
+      };
+      dispatch({
+        type: "ADD_CALORIE_DATA",
+        payload,
+      });
+    }
 
     return () => { }
   }, []);
 
   return (
-    <View style={{ padding: 20, flex: 1, backgroundColor: isDarkMode ? Colors.black : Colors.white, }}>
+    <View style={{ padding: 20, flex: 1, backgroundColor: "#eee", }}>
       <Header />
-      <Image
-        source={{ uri: imageUri }}
-        style={{
-          width: "100%",
-          height: 500,
-          alignSelf: "center",
-          marginHorizontal: 39
-        }}
-      />
+      <View style={{
+        elevation: 10,
+        backgroundColor: "white",
+        borderRadius: 20,
+      }}>
+        <Image
+          source={{ uri: item?.uri ?? imageUri }}
+          style={{
+            width: "100%",
+            height: 500,
+            alignSelf: "center",
+            marginHorizontal: 39,
+            borderRadius: 20
+          }}
+        />
+      </View>
 
       <View style={[styles.card, styles.shadowProp, { backgroundColor: color, height: 50 }]}>
         <View style={{ flex: 1, alignSelf: 'stretch', flexDirection: 'row' }}>
@@ -46,7 +57,7 @@ function DetailsScreen({ route, navigation, dispatch }) {
               fontSize: 30,
               fontWeight: "500",
               color: "green"
-            }}>Calorie</Text>
+            }}>Apple</Text>
           </View>
           <View style={{ flex: 1, alignSelf: 'stretch' }}>
             <Text style={{
@@ -54,7 +65,7 @@ function DetailsScreen({ route, navigation, dispatch }) {
               fontSize: 30,
               fontWeight: "500",
               color: "green"
-            }}>{parseInt(Math.random() * 10000)}</Text>
+            }}>{item?.calorie ?? parseInt(Math.random() * 10000)}Cal</Text>
           </View>
         </View>
       </View>
@@ -70,7 +81,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   shadowProp: {
-    shadowColor: 'white',
+    // shadowColor: '',
     elevation: 10,
     shadowOffset: { width: 20, height: 20 },
     shadowOpacity: 1,

@@ -7,18 +7,34 @@ import GetStartedImage from '../../assets/get_started.jpeg';
 import HistoryImage from '../../assets/history_table.jpg';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Header from './Header';
+import CustomModal from './Modal';
 
 function HomeScreen({ navigation }) {
-  const handlePress = async () => {
+  const [modal, setModal] = useState(false);
+  const handleCamera = async () => {
     const result = await launchCamera();
-    console.log(result);
-    navigation.push("Details", { imageUri: result.assets[0].uri });
+    navigation.push("Details", { imageUri: result.assets[0].uri, source: "HomeScreen" });
+    setModal(false);
+  }
+
+  const handleHistory = () => {
+    navigation.push("History");
+  }
+
+  const handleGallery = async () => {
+    const result = await launchImageLibrary();
+    navigation.push("Details", { imageUri: result.assets[0].uri, source: "HomeScreen" });
+    setModal(false);
+  }
+
+  const handlePress = () => {
+    setModal(true);
   }
 
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <View style={{ padding: 20, flex: 1, backgroundColor: isDarkMode ? Colors.black : Colors.white, }}>
+    <View style={{ padding: 20, flex: 1, backgroundColor: "#eee", }}>
       <Header />
       <Card
         image={GetStartedImage}
@@ -31,7 +47,14 @@ function HomeScreen({ navigation }) {
         image={HistoryImage}
         title="History"
         blurRadius={10}
+        onPress={handleHistory}
       />
+      <CustomModal
+        visible={modal}
+        onCamera={handleCamera}
+        onGallery={handleGallery} onClose={() => {
+          setModal(false);
+        }} />
     </View>
   )
 }
